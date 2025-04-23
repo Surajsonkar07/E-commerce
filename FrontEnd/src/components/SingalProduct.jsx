@@ -30,7 +30,7 @@ const SingalProduct = ({
           <img
             src={image}
             alt=""
-            className=" w-56 flex items-center justify-center cursor-pointer transition-transform duration-300 hover:scale-105"
+            className=" w-56 flex items-center justify-center mt-[5%] cursor-pointer transition-transform duration-300 hover:scale-105"
           />
         </div>
       </div>
