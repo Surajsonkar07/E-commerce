@@ -10,12 +10,13 @@ import Cart from "./pages/Cart";
 import Checkout from "./pages/Checkout";
 import Addtofavourite from "./pages/Addtofavourite";
 import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
 
 const App = () => {
   return (
-    <>
+    <div className="bg-[#f9f6f4]">
       <Navbar />
-      <div className="max-w-7xl mx-auto py-6">
+      <div className="max-w-7xl  mx-auto py-6">
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
@@ -26,8 +27,9 @@ const App = () => {
           <Route path="/cart" element={<Cart />} />
           <Route path="/addtofavourite" element={<Addtofavourite />} />
         </Routes>
+        <Footer/>
       </div>
-    </>
+    </div>
   );
 };
 

@@ -3,4 +3,8 @@
 
 *{
   font-family: 'Outfit', sans-serif;
+  
+}
+body::-webkit-scrollbar{
+  display: none;
 }

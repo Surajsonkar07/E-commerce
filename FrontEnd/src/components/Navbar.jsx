@@ -6,10 +6,13 @@ import { assets } from "../assets/assets";
 const Navbar = () => {
     const [activeMenu, setActiveMenu] = useState("");
   return (
-    <nav className=" flex w-full px-4 py-6 top-0 justify-between  items-center z-50 bg-red-200">
+    <nav className=" flex max-sm:flex-col  sticky top-0 max-sm:gap-2 w-full px-16 py-6  justify-between  items-center z-50 bg-red-200">
       {/* First component */}
       <div>
+        <Link to={"/"}>
+        
         <h1 className="text-2xl font-bold">V-Center</h1>
+        </Link>
       </div>
       {/* second component */}
       <div>

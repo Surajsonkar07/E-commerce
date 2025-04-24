@@ -12,7 +12,7 @@ const SingalProduct = ({
   image,
 }) => {
   return (
-    <div className="w-[300px] h-auto p-1 rounded-md mt-6 border border-gray-100">
+    <div className="w-[300px] shadow-xl h-auto p-1 rounded-md mt-6 border border-gray-100">
       <div className=" bg-[#F5F5F5] w-full h-[300px] rounded-md p-5">
         <div className="flex item-center justify-between px-2">
           <p className="px-3 py-1 bg-[#DB4444] text-white rounded-md">
