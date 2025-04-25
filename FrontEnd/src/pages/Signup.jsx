@@ -19,7 +19,7 @@ const Signup = () => {
 
 
   return (
-    <div className=" flex flex-col px-10 mb-5 bg-yellow-50 md:flex-row gap-10 justify-around items-center mt- ">
+    <div className=" flex  shadow-2xl  rounded-2xl flex-col px-10 mb-5 bg-yellow-50 md:flex-row gap-10 justify-around items-center mt- ">
       <div className="mt-5">
         <img src={assets.login_image} alt=""  className="rounded-2xl"/>
       </div>

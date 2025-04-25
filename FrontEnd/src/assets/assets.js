@@ -49,9 +49,11 @@ import user from "./user.png";
 import watch from "./watch.png";
 import wish from "./wish.png";
 import search from "./search.png";
+import red_heart from "./red_heart.webp";
 
 export const assets = {
   hero,
+  red_heart,
   search,
   category,
   new_arrival_left,
@@ -72,29 +74,15 @@ export const assets = {
 };
 
 export const aboutData = [
-  { id: 1, image: about1, number: "10.5k", text: "solar active on our site" },
-  {
-    id: 2,
-    image: about2,
-    number: "45.5k",
-    text: "customer active on our site",
-  },
-  {
-    id: 3,
-    image: about3,
-    number: "25k",
-    text: "annual gross sale on our site",
-  },
-  {
-    id: 4,
-    image: about4,
-    number: "33k",
-    text: "Monthly Product sale",
-  },
+  { id: 1001, image: about1, number: "10.5k", text: "solar active on our site" },
+  { id: 1002, image: about2, number: "45.5k", text: "customer active on our site" },
+  { id: 1003, image: about3, number: "25k", text: "annual gross sale on our site" },
+  { id: 1004, image: about4, number: "33k", text: "Monthly Product sale" },
 ];
+
 export const latestProducts = [
   {
-    id: 1,
+    id: 2001,
     image: f1,
     name: "Wireless Gamepad",
     oldPrice: 59.99,
@@ -102,11 +90,10 @@ export const latestProducts = [
     rating: r2,
     number: 88,
     discount: -50,
-    description:
-      "Experience ultimate gaming control with our wireless gamepad. Enjoy seamless connectivity and precise movements for an immersive gaming experience. Compatible with multiple platforms for versatile use.",
+    description: "Experience ultimate gaming control with our wireless gamepad...",
   },
   {
-    id: 2,
+    id: 2002,
     image: f2,
     name: "Mechanical Keyboard",
     oldPrice: 89.99,
@@ -114,11 +101,10 @@ export const latestProducts = [
     rating: r1,
     number: 99,
     discount: -13,
-    description:
-      "Enhance your typing and gaming with this mechanical keyboard. Features RGB lighting and tactile switches for an amazing experience. Built for durability and speed.",
+    description: "Enhance your typing and gaming with this mechanical keyboard...",
   },
   {
-    id: 3,
+    id: 2003,
     image: f3,
     name: "LED Monitor",
     oldPrice: 199.99,
@@ -126,11 +112,10 @@ export const latestProducts = [
     rating: r3,
     number: 105,
     discount: -23,
-    description:
-      "Get stunning visuals with this high-resolution LED monitor. Designed for crisp image quality and smooth refresh rates, perfect for work and play. Slim design fits any workspace.",
+    description: "Get stunning visuals with this high-resolution LED monitor...",
   },
   {
-    id: 4,
+    id: 2004,
     image: f4,
     name: "Ergonomic Gaming Chair",
     oldPrice: 249.99,
@@ -138,22 +123,21 @@ export const latestProducts = [
     rating: r1,
     number: 200,
     discount: -33,
-    description:
-      "Sit in comfort for long hours with this ergonomic gaming chair. Adjustable height, lumbar support, and premium cushioning make it perfect for gamers and professionals. Built to last with high-quality materials.",
+    description: "Sit in comfort for long hours with this ergonomic gaming chair...",
   },
 ];
 
 export const categories = [
-  { id: 1, image: phone, name: "Phone" },
-  { id: 2, image: computer, name: "Computer" },
-  { id: 3, image: watch, name: "Watch" },
-  { id: 4, image: game, name: "Game" },
-  { id: 5, image: head_phone, name: "Headphone" },
+  { id: 3001, image: phone, name: "Phone" },
+  { id: 3002, image: computer, name: "Computer" },
+  { id: 3003, image: watch, name: "Watch" },
+  { id: 3004, image: game, name: "Game" },
+  { id: 3005, image: head_phone, name: "Headphone" },
 ];
 
 export const BestProducts = [
   {
-    id: 1,
+    id: 4001,
     image: bag,
     name: "Stylish Backpack",
     oldPrice: 49.99,
@@ -161,11 +145,10 @@ export const BestProducts = [
     rating: r1,
     number: 88,
     discount: -50,
-    description:
-      "Carry your essentials in style with this durable and spacious backpack. Designed for comfort and functionality, perfect for daily use and travel.",
+    description: "Carry your essentials in style with this durable backpack...",
   },
   {
-    id: 2,
+    id: 4002,
     image: shirt,
     name: "Casual Shirt",
     oldPrice: 39.99,
@@ -173,11 +156,10 @@ export const BestProducts = [
     rating: r3,
     number: 88,
     discount: -33,
-    description:
-      "Stay comfortable and fashionable with this premium casual shirt. Made from high-quality fabric, perfect for any occasion.",
+    description: "Stay comfortable and fashionable with this premium casual shirt...",
   },
   {
-    id: 3,
+    id: 4003,
     image: music,
     name: "Wireless Earbuds",
     oldPrice: 79.99,
@@ -185,11 +167,10 @@ export const BestProducts = [
     rating: r1,
     number: 88,
     discount: -20,
-    description:
-      "Enjoy crystal-clear sound with these wireless earbuds. Compact, stylish, and equipped with noise cancellation for an immersive audio experience.",
+    description: "Enjoy crystal-clear sound with these wireless earbuds...",
   },
   {
-    id: 4,
+    id: 4004,
     image: table,
     name: "Wooden Study Table",
     oldPrice: 159.99,
@@ -197,14 +178,13 @@ export const BestProducts = [
     rating: r2,
     number: 88,
     discount: -28,
-    description:
-      "Upgrade your workspace with this elegant wooden study table. Sturdy, spacious, and designed for maximum productivity.",
+    description: "Upgrade your workspace with this elegant wooden study table...",
   },
 ];
 
 export const products = [
   {
-    id: 1,
+    id: 5001,
     image: p1,
     name: "Dry Dog Food",
     oldPrice: 5.99,
@@ -212,11 +192,10 @@ export const products = [
     rating: r1,
     number: 88,
     discount: -50,
-    description:
-      "Freshly baked bread with a soft and fluffy texture. Perfect for sandwiches or a tasty snack.",
+    description: "Freshly baked bread with a soft and fluffy texture...",
   },
   {
-    id: 2,
+    id: 5002,
     image: p2,
     name: "Camera",
     oldPrice: 29.99,
@@ -224,11 +203,10 @@ export const products = [
     rating: r2,
     number: 89,
     discount: -30,
-    description:
-      "Nutritious dry dog food with high protein and essential vitamins for a healthy pet.",
+    description: "Nutritious dry dog food with high protein...",
   },
   {
-    id: 3,
+    id: 5003,
     image: p3,
     name: "Laptop",
     oldPrice: 499.99,
@@ -236,12 +214,10 @@ export const products = [
     rating: r3,
     number: 106,
     discount: -20,
-    description:
-      "Capture stunning photos with this high-quality digital camera. Perfect for professionals and hobbyists alike.",
+    description: "Capture stunning photos with this high-quality digital camera...",
   },
-
   {
-    id: 5,
+    id: 5004,
     image: p5,
     name: "Suzuki Honda",
     oldPrice: 14.99,
@@ -249,11 +225,10 @@ export const products = [
     rating: r2,
     number: 200,
     discount: -20,
-    description:
-      "Gentle face wash that cleanses and hydrates your skin, leaving it fresh and glowing.",
+    description: "Gentle face wash that cleanses and hydrates your skin...",
   },
   {
-    id: 6,
+    id: 5005,
     image: p6,
     name: "Winter bau",
     oldPrice: 24999.99,
@@ -261,11 +236,10 @@ export const products = [
     rating: r2,
     number: 70,
     discount: -36,
-    description:
-      "Stylish and fuel-efficient car with advanced safety features and a comfortable interior.",
+    description: "Stylish and fuel-efficient car with advanced safety features...",
   },
   {
-    id: 7,
+    id: 5006,
     image: p7,
     name: "Gamepad",
     oldPrice: 79.99,
@@ -273,11 +247,10 @@ export const products = [
     rating: r1,
     number: 88,
     discount: -50,
-    description:
-      "Comfortable and stylish shoes designed for daily wear and sports activities.",
+    description: "Comfortable and stylish shoes designed for daily wear...",
   },
   {
-    id: 8,
+    id: 5007,
     image: p8,
     name: "jacket",
     oldPrice: 59.99,
@@ -285,47 +258,33 @@ export const products = [
     rating: r2,
     number: 167,
     discount: -25,
-    description:
-      "Wireless gamepad with precise controls and seamless connectivity for an immersive gaming experience.",
+    description: "Wireless gamepad with precise controls...",
   },
 ];
+
 export const newArrivalData = [
   {
-    id: 1,
+    id: 6001,
     image: arrival_icon1,
     text: "FREE AND FAST DELIVERY",
     description: "upgrade your workspace with this elegant wooden",
   },
   {
-    id: 2,
+    id: 6002,
     image: arrival_icon2,
     text: "CUSTOMER SERVICE",
     description: "upgrade your workspace with this elegant wooden",
   },
   {
-    id: 3,
+    id: 6003,
     image: arrival_icon3,
     text: "MONEY BACK GUARANTEE",
     description: "upgrade your workspace with this elegant wooden",
   },
 ];
+
 export const team = [
-  {
-    id: 1,
-    image: team1,
-    name: "Tom Cruise",
-    designation: "Founder & Chairman",
-  },
-  {
-    id: 2,
-    image: team2,
-    name: "Emma Watson",
-    designation: "Managing Director",
-  },
-  {
-    id: 3,
-    image: team3,
-    name: "Will Smith",
-    designation: "Product designer",
-  },
+  { id: 7001, image: team1, name: "Tom Cruise", designation: "Founder & Chairman" },
+  { id: 7002, image: team2, name: "Emma Watson", designation: "Managing Director" },
+  { id: 7003, image: team3, name: "Will Smith", designation: "Product designer" },
 ];

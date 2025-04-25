@@ -1,8 +1,9 @@
-import React from "react";
-import { products } from "../assets/assets";
+import React, { useContext } from "react";
 import SingalProduct from "./SingalProduct";
+import { StoreContext } from "../context/StoreContext";
 
 const Product = () => {
+  const {products} = useContext(StoreContext);
   return (
     <div className=" my-12 w-full">
       <p className="text-red-500 text-center ml-5 font font-semibold text-5xl">
@@ -17,6 +18,7 @@ md:font-bold text-gray-800 mt-3"
           return (
             <SingalProduct
               key={product.id}
+              id={product.id}
               image={product.image}
               name={product.name}
               oldPrice={product.oldPrice}

@@ -1,8 +1,10 @@
-import React from "react";
-import { assets, BestProducts } from "../assets/assets";
+import React, { useContext } from "react";
+import { assets } from "../assets/assets";
 import SingalProduct from "./SingalProduct";
+import { StoreContext } from "../context/StoreContext";
 
 const BestProduct = () => {
+  const {BestProducts} = useContext(StoreContext);
   return (
     <div className=" my-12 w-full">
       <p className="text-red-500 text-center font-semibold text-5xl">
@@ -10,12 +12,16 @@ const BestProduct = () => {
       </p>
       <h2
         className=" text-center text-xl font-semibold md:text-start md:text-3xl
-        md:font-bold text-gray-800 mt-3">Best Selling Product</h2>
-         <div className=" flex gap-2 flex-wrap justify-center items-center w-full h-auto p-5">
+        md:font-bold text-gray-800 mt-3"
+      >
+        Best Selling Product
+      </h2>
+      <div className=" flex gap-2 flex-wrap justify-center items-center w-full h-auto p-5">
         {BestProducts.map((product) => {
           return (
             <SingalProduct
               key={product.id}
+              id={product.id}
               image={product.image}
               name={product.name}
               oldPrice={product.oldPrice}
@@ -31,9 +37,6 @@ const BestProduct = () => {
       <div className="my-12 flex items-center justify-center">
         <img src={assets.category} alt="" />
       </div>
-   
-   
-   
     </div>
   );
 };

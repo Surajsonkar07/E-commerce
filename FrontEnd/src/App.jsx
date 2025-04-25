@@ -11,6 +11,7 @@ import Checkout from "./pages/Checkout";
 import Addtofavourite from "./pages/Addtofavourite";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
+import {ToastContainer} from "react-toastify";
 
 const App = () => {
   return (
@@ -27,6 +28,7 @@ const App = () => {
           <Route path="/cart" element={<Cart />} />
           <Route path="/addtofavourite" element={<Addtofavourite />} />
         </Routes>
+        <ToastContainer/>
         <Footer/>
       </div>
     </div>

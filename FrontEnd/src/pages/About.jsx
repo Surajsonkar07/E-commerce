@@ -5,7 +5,7 @@ const About = () => {
   return (
     <>
       <div className="flex mx-5 flex-col md:flex-row items-center justify-around gap-5">
-        <div className="w-full md:1/2">
+        <div className="w-full shadow-2xl p-10  rounded-2xl md:1/2">
           <h1 className="text-5xl my-2 font-bold text-gray-800">Our Story</h1>
           <p className="text-base font-normal mt-4 text-gray-800">
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi odio
@@ -25,15 +25,15 @@ const About = () => {
             repellendus, et sed, similique nulla tenetur reprehenderit repellat!
           </p>
         </div>
-        <div className="w-full md:1/2 mb-3">
-          <img src={assets.about} alt="" />
+        <div className="w-full md:1/2 mb-3 shadow-2xl">
+          <img src={assets.about} alt="" className=" shadow-2xl rounded-2xl" />
         </div>
       </div>
       <div className=" flex flex-wrap items-center justify-center gap-5 mx-5 ">
         {aboutData.map((item, index) => (
           <div
             key={index}
-            className="flex flex-col items-center gap-2 border border-gray-300 rounded-lg p-5 mx-2 mt-8 mb-5"
+            className="flex flex-col shadow-2xl items-center gap-2 border border-gray-300 rounded-lg p-5 mx-2 mt-8 mb-5"
           >
             <img src={item.image} alt="" className="w-16 h-16 rounded-full" />
 
@@ -46,7 +46,7 @@ const About = () => {
       </div>
       <div className="flex flex-wrap items-center justify-center gap-4 my-5 ">
         {team.map((item)=>(
-          <div key={item.id} className="flex  flex-col items-center gap-1 border border-gray-300 rounded-xl  mt-4 mb-5 pb-4">
+          <div key={item.id} className="flex shadow-2xl flex-col items-center gap-1 border border-gray-300 rounded-xl  mt-4 mb-5 pb-4">
             <img src={item.image} className="w-[80%]" alt="" />
             <h1 className="text-xl font-bold">{item.name}</h1>
             <p className="font-semibold">{item.designation}</p>
@@ -55,7 +55,7 @@ const About = () => {
       </div>
          <div className="flex flex-col md:flex-row gap-5 justify-center items-center w-full h-auto p-5">
               {newArrivalData.map((item) => (
-                <div key={item.id} className="flex flex-col gap-2 items-center justify-center">
+                <div key={item.id} className="flex shadow-2xl p-3 flex-col gap-2 items-center justify-center">
                   <img src={item.image} alt="" />
                   <h4 className="text-xl font-normal text-gray-800">{item.text}</h4>
                   <p className=" text-sm">{item.description}</p>

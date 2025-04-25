@@ -3,8 +3,8 @@ import { assets } from "../assets/assets";
 
 const Contact = () => {
   return (
-    <div className="flex  max-sm:flex-col items-center justify-between gap-5 mx-5">
-      <div className="w-full md:w-1/2 flex flex-col items-center justify-center gap-4">
+    <div className="flex mb-5  max-sm:flex-col items-center justify-between gap-5 mx-5">
+      <div className="w-full shadow-2xl py-13 md:w-1/2 flex flex-col items-center justify-center gap-4">
         <div
           className="flex
          gap-3 itencenter justify-center"
@@ -16,7 +16,7 @@ const Contact = () => {
           We Are available 24/7, 7days a week
         </p>
         <p className="text-lg font-medium">Phone: +8801828983863979</p>
-        <hr className="text-3xl font-semibold text-gray-800" />
+        <hr className="h-2 w-[90%]" />
 
         <div
           className="flex
@@ -30,7 +30,7 @@ const Contact = () => {
         </p>
         <p className="text-lg font-medium">Phone: +8801828983863979</p>
       </div>
-      <div className="w-full rounded-lg my-3 md:w-1/2 flex flex-col items-center justify-center gap-4 bg-pink-200 h-[400px]">
+      <div className="w-full shadow-xl rounded-lg my-3 md:w-1/2 flex flex-col items-center justify-center gap-4 bg-pink-200 h-[400px]">
         <h1 className="text-3xl font-semibold">Enter Deatils</h1>
         <form
           action=""

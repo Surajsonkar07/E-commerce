@@ -18,7 +18,7 @@ const Login = () => {
 
 
   return (
-    <div className=" flex flex-col px-10  bg-yellow-50 md:flex-row gap-10 justify-around items-center  ">
+    <div className=" flex flex-col px-10 shadow-2xl mb-5 rounded-2xl bg-yellow-50 md:flex-row gap-10 justify-around items-center  ">
       <div className="my-5">
         <img src={assets.login_image} alt=""  className="    rounded-2xl"/>
       </div>

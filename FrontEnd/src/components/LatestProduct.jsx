@@ -1,8 +1,9 @@
-import React from "react";
-import { latestProducts } from "../assets/assets";
+import React, { useContext } from "react";
 import SingalProduct from "./SingalProduct";
+import { StoreContext } from "../context/StoreContext";
 
 const LatestProduct = () => {
+  const{latestProducts}= useContext(StoreContext)
   return (
     <div className=" my-12 w-full mx-auto">
       <p className=" text-red-500 font-semibold text-5xl text-center">Today's </p>
@@ -14,6 +15,7 @@ const LatestProduct = () => {
           return (
             <SingalProduct
               key={product.id}
+              id={product.id}
               image={product.image}
               name={product.name}
               oldPrice={product.oldPrice}
