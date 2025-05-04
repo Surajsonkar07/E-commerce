@@ -15,15 +15,16 @@ const SingalProduct = ({
   const { addToCart, addToFavourite, removeFromFavourite, favourites } =
     useContext(StoreContext);
 
-    // const isFavourite = favourites.some((p) => p.id === id);
+    let isFavourite = favourites.some((p) => p.id === id);
 
-  // const handleFavourite = (product) => {
-  //   if (isFavourite) {
-  //     removeFromFavourite(id);
-  //   } else {
-  //     addToFavourite(id);
-  //   }
-  // };
+    const handleFavourite = (product) => {
+      if (isFavourite) {
+    
+        removeFromFavourite({ id });
+      } else {
+        addToFavourite({id,name,newPrice,image,oldPrice,discount});
+      }
+    };
   return (
     <div className="w-[300px] shadow-xl h-auto p-1 rounded-md mt-6 border border-gray-100">
       <div className=" bg-[#F5F5F5] w-full h-[300px] rounded-md p-5">
@@ -32,10 +33,10 @@ const SingalProduct = ({
             {discount}%
           </p>
           <div
-            onClick={() => handleFavourite({ id, name, newPrice, image })}
+            onClick={handleFavourite}
             className="bg-white  text-black rounded-full cursor-pointer"
           >
-            {/* {isFavourite?
+            {isFavourite?
              (
               <img
                 src={assets.red_heart}
@@ -48,7 +49,7 @@ const SingalProduct = ({
                 className="w-7 h-6 cursor-pointer"
                 alt=""
               />
-            )} */}
+            )}
           </div>
         </div>
         <div>

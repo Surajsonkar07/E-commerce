@@ -4,7 +4,7 @@ import { assets } from "../assets/assets";
 import { StoreContext } from "../context/StoreContext";
 
 const Navbar = () => {
-  const { cart } = useContext(StoreContext);
+  const { cart,favourites } = useContext(StoreContext);
   const [activeMenu, setActiveMenu] = useState("");
   return (
     <nav className=" shadow-xl flex max-sm:flex-col  sticky top-0 max-sm:gap-2 w-full px-16 py-6  justify-between  items-center z-50 bg-red-200">
@@ -71,11 +71,16 @@ const Navbar = () => {
         </div>
         <Link to="/addtofavourite">
           <div>
+            {favourites.length > 0 ? <img
+              src={assets.red_heart}
+              alt=""
+              className="cursor-pointer rounded-full w-13 h-12 p-2 "
+            /> :
             <img
               src={assets.wish}
               alt=""
-              className="cursor-pointer rounded-full w-13 h-9 p-2 "
-            />
+              className="cursor-pointer rounded-full w-12 h-10 p-2 "
+            />}
           </div>
         </Link>{" "}
         <Link to="/cart">
