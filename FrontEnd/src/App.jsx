@@ -15,7 +15,7 @@ import {ToastContainer} from "react-toastify";
 
 const App = () => {
   return (
-    <div className="bg-[#f9f6f4]">
+    <div className="bg-[#f9f6f4] ">
       <Navbar />
       <div className="max-w-7xl  mx-auto py-6">
         <Routes>

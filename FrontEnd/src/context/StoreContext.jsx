@@ -25,18 +25,8 @@ const StoreProvider = ({ children }) => {
       return [];
     }
   });
-
-  // Safer localStorage sync
-  // useEffect(() => {
-  //   try {
-  //     localStorage.setItem("cart", JSON.stringify(cart));
-  //     console.log(cart);
-  //   } catch (error) {
-  //     console.error("Error saving cart:", error);
-  //   }
-  // }, [cart]);
-
-  // add to favourites
+const totalPrice=Math.round(cart.reduce((total, item) => total + item.newPrice * item.quantity, 0));
+  const totalQuantity = cart.reduce((total, item) => total + item.quantity, 0);
 
   const addToFavourite = (product) => {
     const updatedFavourites = [...favourites, product];
@@ -72,7 +62,7 @@ const StoreProvider = ({ children }) => {
   };
 
   const removeFromCart = (product) => {
-    const updateCart = cart.filter((p) => p.id !== product.id);
+    const updateCart = cart.filter((p) => p.id !== product);
     setCart(updateCart);
     localStorage.setItem("cart", JSON.stringify(updateCart));
 
@@ -103,6 +93,7 @@ const StoreProvider = ({ children }) => {
       favourites,
       addToFavourite,
       removeFromFavourite,
+      totalPrice,
     }),
     [cart, favourites] // Only update when cart or favourites changes
   );
