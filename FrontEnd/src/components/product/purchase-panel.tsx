@@ -3,10 +3,11 @@
 import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Check, Minus, Plus, ShoppingBag, Truck, Zap } from "lucide-react";
-import { AnimatePresence, motion } from "motion/react";
+import { AnimatePresence } from "motion/react";
+import * as m from "motion/react-m";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
-import { defaultOptions, priceFor, type Product } from "@/lib/catalog";
+import { defaultOptions, priceFor, type Product } from "@/lib/catalog-core";
 import { formatMoney } from "@/lib/format";
 import { useHydrated, useShop } from "@/lib/store";
 import { cn } from "@/lib/utils";
@@ -62,9 +63,9 @@ export function PurchasePanel({ product: p }: { product: Product }) {
     <div className="flex flex-col gap-7">
       <div>
         <p className="flex items-baseline gap-3 font-mono tabular-nums">
-          <motion.span key={unit} initial={{ opacity: 0.4, y: -4 }} animate={{ opacity: 1, y: 0 }} className="text-3xl font-semibold">
+          <m.span key={unit} initial={hydrated ? { opacity: 0.4, y: -4 } : false} animate={{ opacity: 1, y: 0 }} className="text-3xl font-semibold">
             {formatMoney(unit)}
-          </motion.span>
+          </m.span>
           {compare > unit ? <s className="text-lg text-ink-soft">{formatMoney(compare)}</s> : null}
           {compare > unit ? (
             <span className="rounded-sm bg-accent px-1.5 py-0.5 text-[13px] font-semibold text-accent-ink">Save {formatMoney(compare - unit)}</span>
@@ -126,9 +127,9 @@ export function PurchasePanel({ product: p }: { product: Product }) {
           </div>
           <Button size="lg" className="h-12 flex-1" disabled={soldOut} onClick={() => addToBag()}>
             <AnimatePresence mode="wait" initial={false}>
-              <motion.span key={String(added)} initial={{ y: 8, opacity: 0 }} animate={{ y: 0, opacity: 1 }} exit={{ y: -8, opacity: 0 }} transition={{ duration: 0.15 }} className="inline-flex items-center gap-2">
+              <m.span key={String(added)} initial={{ y: 8, opacity: 0 }} animate={{ y: 0, opacity: 1 }} exit={{ y: -8, opacity: 0 }} transition={{ duration: 0.15 }} className="inline-flex items-center gap-2">
                 {soldOut ? "Sold out" : added ? (<><Check /> Added</>) : (<><ShoppingBag /> Add to bag</>)}
-              </motion.span>
+              </m.span>
             </AnimatePresence>
           </Button>
         </div>
@@ -158,7 +159,7 @@ export function PurchasePanel({ product: p }: { product: Product }) {
       {/* sticky buy bar on phones once the main button scrolls away */}
       <AnimatePresence>
         {showBar && !soldOut ? (
-          <motion.div
+          <m.div
             initial={{ y: "100%" }}
             animate={{ y: 0 }}
             exit={{ y: "100%" }}
@@ -174,7 +175,7 @@ export function PurchasePanel({ product: p }: { product: Product }) {
                 <ShoppingBag /> Add
               </Button>
             </div>
-          </motion.div>
+          </m.div>
         ) : null}
       </AnimatePresence>
     </div>

@@ -3,10 +3,8 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Heart, Home, LayoutGrid, Menu, ShoppingBag, User } from "lucide-react";
-import { AnimatePresence, motion } from "motion/react";
 import { Logo } from "@/components/logo";
 import { Sheet, SheetClose, SheetContent, SheetDescription, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
-import { categories } from "@/lib/catalog";
 import { useLoadSession, useSession } from "@/lib/session";
 import { cartCount, useHydrated, useShop } from "@/lib/store";
 import { cn } from "@/lib/utils";
@@ -22,22 +20,15 @@ const nav = [
 ];
 
 function Count({ n, label }: { n: number; label: string }) {
+  if (n <= 0) return null;
   return (
-    <AnimatePresence initial={false}>
-      {n > 0 ? (
-        <motion.span
-          key={n}
-          initial={{ scale: 0.4, opacity: 0 }}
-          animate={{ scale: 1, opacity: 1 }}
-          exit={{ scale: 0.4, opacity: 0 }}
-          transition={{ type: "spring", stiffness: 520, damping: 22 }}
-          className="absolute top-1 right-0.5 grid h-[18px] min-w-[18px] place-items-center rounded-full bg-primary px-1 font-mono text-[11px] leading-none font-semibold text-primary-ink"
-        >
-          {n}
-          <span className="sr-only"> {label}</span>
-        </motion.span>
-      ) : null}
-    </AnimatePresence>
+    <span
+      key={n}
+      className="absolute top-1 right-0.5 grid h-[18px] min-w-[18px] animate-[pop_320ms_var(--ease-out-soft)] place-items-center rounded-full bg-primary px-1 font-mono text-[11px] leading-none font-semibold text-primary-ink"
+    >
+      {n}
+      <span className="sr-only"> {label}</span>
+    </span>
   );
 }
 
@@ -48,15 +39,15 @@ function useCounts() {
   return { bag: hydrated ? bag : 0, wish: hydrated ? wish : 0 };
 }
 
-export function SiteHeader() {
+export function SiteHeader({ categories, productCount }: { categories: { slug: string; name: string }[]; productCount: number }) {
   useLoadSession();
   const user = useSession((s) => s.user);
   const { bag, wish } = useCounts();
-  const pathname = usePathname();
+  const pathname = usePathname() ?? "/";
 
   return (
     <header className="sticky top-0 z-40 border-b border-line bg-paper/92 backdrop-blur-md supports-[backdrop-filter]:bg-paper/80">
-      <div className="container-x flex h-16 items-center gap-3 lg:h-[72px] lg:gap-8">
+      <div className="container-x flex h-16 items-center gap-3 lg:h-[72px] lg:gap-6 xl:gap-8">
         <Sheet>
           <SheetTrigger className="-ml-2 grid size-11 place-items-center rounded-md hover:bg-sunken lg:hidden" aria-label="Open menu">
             <Menu className="size-[21px]" />
@@ -113,7 +104,7 @@ export function SiteHeader() {
                     href={n.href}
                     aria-current={active ? "page" : undefined}
                     className={cn(
-                      "relative inline-flex h-11 items-center rounded-md px-3 text-[15px] text-ink-soft transition-colors hover:text-ink",
+                      "relative inline-flex h-11 items-center rounded-md px-2.5 text-[15px] whitespace-nowrap text-ink-soft transition-colors hover:text-ink xl:px-3",
                       active && "text-ink after:absolute after:inset-x-3 after:bottom-1.5 after:h-0.5 after:rounded-full after:bg-primary",
                     )}
                   >
@@ -126,22 +117,22 @@ export function SiteHeader() {
         </nav>
 
         <div className="ml-auto flex items-center gap-0.5 sm:gap-1">
-          <SearchDialog className="hidden w-64 md:flex xl:w-80" />
-          <SearchDialog compact className="md:hidden" />
+          <SearchDialog productCount={productCount} />
           <ThemeToggle className="hidden sm:grid" />
           <Link
             href={user ? "/account" : "/login"}
+            prefetch={false}
             className="hidden h-11 items-center gap-2 rounded-md px-2.5 text-sm hover:bg-sunken sm:inline-flex"
             aria-label={user ? `Your account (${user.name})` : "Sign in"}
           >
             <User className="size-[19px]" />
             <span className="hidden max-w-24 truncate xl:inline">{user ? user.name.split(" ")[0] : "Sign in"}</span>
           </Link>
-          <Link href="/wishlist" className="relative hidden size-11 place-items-center rounded-md hover:bg-sunken sm:grid" aria-label="Wishlist">
+          <Link href="/wishlist" prefetch={false} className="relative hidden size-11 place-items-center rounded-md hover:bg-sunken sm:grid" aria-label="Wishlist">
             <Heart className="size-[19px]" />
             <Count n={wish} label="saved items" />
           </Link>
-          <Link href="/cart" className="relative grid size-11 place-items-center rounded-md hover:bg-sunken" aria-label="Shopping bag">
+          <Link href="/cart" prefetch={false} className="relative grid size-11 place-items-center rounded-md hover:bg-sunken" aria-label="Shopping bag">
             <ShoppingBag className="size-[19px]" />
             <Count n={bag} label="items in bag" />
           </Link>
@@ -153,16 +144,16 @@ export function SiteHeader() {
 
 /** App-style bottom bar on phones. */
 export function MobileTabBar() {
-  const pathname = usePathname();
+  const pathname = usePathname() ?? "/";
   const { bag, wish } = useCounts();
   const user = useSession((s) => s.user);
   if (pathname.startsWith("/checkout")) return null;
   const tabs = [
-    { href: "/", label: "Home", icon: Home, match: (p: string) => p === "/" },
-    { href: "/shop", label: "Shop", icon: LayoutGrid, match: (p: string) => p.startsWith("/shop") || p.startsWith("/c/") || p.startsWith("/product") },
-    { href: "/wishlist", label: "Saved", icon: Heart, n: wish, match: (p: string) => p === "/wishlist" },
-    { href: "/cart", label: "Bag", icon: ShoppingBag, n: bag, match: (p: string) => p === "/cart" },
-    { href: user ? "/account" : "/login", label: user ? "Account" : "Sign in", icon: User, match: (p: string) => p.startsWith("/account") || p === "/login" || p === "/signup" },
+    { href: "/", label: "Home", icon: Home, prefetch: undefined, match: (p: string) => p === "/" },
+    { href: "/shop", label: "Shop", icon: LayoutGrid, prefetch: undefined, match: (p: string) => p.startsWith("/shop") || p.startsWith("/c/") || p.startsWith("/product") },
+    { href: "/wishlist", label: "Saved", icon: Heart, n: wish, prefetch: false, match: (p: string) => p === "/wishlist" },
+    { href: "/cart", label: "Bag", icon: ShoppingBag, n: bag, prefetch: false, match: (p: string) => p === "/cart" },
+    { href: user ? "/account" : "/login", label: user ? "Account" : "Sign in", icon: User, prefetch: false, match: (p: string) => p.startsWith("/account") || p === "/login" || p === "/signup" },
   ];
   return (
     <nav
@@ -176,6 +167,7 @@ export function MobileTabBar() {
             <li key={t.label}>
               <Link
                 href={t.href}
+                prefetch={t.prefetch}
                 aria-current={active ? "page" : undefined}
                 className={cn("relative flex h-16 flex-col items-center justify-center gap-1 text-[11px]", active ? "text-ink" : "text-ink-soft")}
               >
@@ -188,7 +180,7 @@ export function MobileTabBar() {
                   ) : null}
                 </span>
                 {t.label}
-                {active ? <motion.span layoutId="tab-dot" className="absolute top-0 h-0.5 w-8 rounded-full bg-primary" /> : null}
+                {active ? <span className="absolute top-0 h-0.5 w-8 animate-[fade-in_200ms_ease-out] rounded-full bg-primary" /> : null}
               </Link>
             </li>
           );

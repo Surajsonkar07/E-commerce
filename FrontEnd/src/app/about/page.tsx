@@ -4,7 +4,8 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Breadcrumbs } from "@/components/breadcrumbs";
-import { CountUp, Reveal, Stagger, StaggerItem } from "@/components/motion";
+import { CountUp } from "@/components/count-up";
+import { Reveal, Stagger, StaggerItem } from "@/components/motion";
 import { SectionHeading } from "@/components/section-heading";
 import { site } from "@/lib/site";
 

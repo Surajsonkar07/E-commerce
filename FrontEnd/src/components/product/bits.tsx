@@ -37,7 +37,7 @@ export function Rating({ value, count, className }: { value: number; count?: num
       </span>
       <span className="font-mono tabular-nums">
         {value.toFixed(1)}
-        {count !== undefined ? <span className="text-ink-soft/80"> ({count})</span> : null}
+        {count !== undefined ? <span> ({count})</span> : null}
       </span>
       <span className="sr-only">
         Rated {value} out of 5{count !== undefined ? ` from ${count} reviews` : ""}

@@ -2,7 +2,8 @@
 
 import Link from "next/link";
 import { ArrowRight, Heart, Minus, Plus, ShoppingBag, Trash2 } from "lucide-react";
-import { AnimatePresence, motion } from "motion/react";
+import { AnimatePresence } from "motion/react";
+import * as m from "motion/react-m";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { LineThumb } from "@/components/cart/line-thumb";
@@ -74,7 +75,7 @@ export function CartView() {
         <ul>
           <AnimatePresence initial={false}>
             {cart.map((l) => (
-              <motion.li
+              <m.li
                 key={l.key}
                 layout
                 initial={{ opacity: 0 }}
@@ -128,7 +129,7 @@ export function CartView() {
                     </div>
                   </div>
                 </div>
-              </motion.li>
+              </m.li>
             ))}
           </AnimatePresence>
         </ul>

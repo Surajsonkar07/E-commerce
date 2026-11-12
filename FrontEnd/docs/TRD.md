@@ -34,7 +34,7 @@ Companion to [`PRD.md`](./PRD.md). Design rules live in [`../DESIGN.md`](../DESI
 | tailwindcss / @tailwindcss/postcss | 4.3.5 | design tokens via `@theme inline`, CSS-first config |
 | radix-ui | 1.8.1 | accessible Dialog/Sheet, Accordion, Slot (shadcn-style wrappers in `components/ui`) |
 | class-variance-authority, clsx, tailwind-merge | 0.7.1 / 2.1.1 / 3.7.0 | component variants |
-| motion | 14.12.0 | reveals, layout animations, springs |
+| motion | 14.12.0 | interactive animations on product, bag, wishlist, checkout and contact routes only, via `LazyMotion` + `m` (features load async) |
 | next-themes | 0.4.6 | light/dark/system without flash |
 | zustand | 5.1.0 | persisted bag/wishlist, session store |
 | react-hook-form, @hookform/resolvers, zod | 7.91.0 / 7.0.5 / 4.6.7 | forms and shared server/client validation |
@@ -64,8 +64,8 @@ FrontEnd/
 │  ├─ product/     product-card, product-image, bits (Price/Rating/SaleTag), gallery, purchase-panel, quick-add, wish-button
 │  ├─ cart/        receipt, line-thumb
 │  ├─ auth/        auth-form, auth-page
-│  └─ motion, countdown, section-heading, breadcrumbs, json-ld, logo, providers
-└─ src/lib/        catalog, db, auth, schemas, pricing, store, session, site, format, utils
+│  └─ motion (CSS reveals), motion-root (LazyMotion), count-up, countdown, section-heading, breadcrumbs, json-ld, logo, providers
+└─ src/lib/        catalog (data) + catalog-core (types/pure helpers, client-safe), db, auth, schemas, pricing, store, session, site, format, utils
 ```
 
 ## 3. Route map
@@ -74,11 +74,11 @@ FrontEnd/
 |---|---|---|
 | `/` | page | static |
 | `/shop` | page | dynamic (searchParams) |
-| `/c/[slug]` | page | SSG for 9 slugs (dynamic when filtered) |
+| `/c/[slug]` | page | dynamic (reads filter searchParams); 9 slugs from `generateStaticParams`, unknown → 404 |
 | `/product/[slug]` | page | SSG for 16 slugs, `dynamicParams = false` |
 | `/cart`, `/wishlist`, `/checkout` | page + client view | static shell, client data |
-| `/order/[id]` | page | dynamic (cookie) |
-| `/account` | page | dynamic (cookie) |
+| `/order/[id]` | page | dynamic (cookie); signed-out → redirect to `/login?next=` |
+| `/account` | page | dynamic (cookie); signed-out → redirect to `/login?next=/account` |
 | `/login`, `/signup`, `/about`, `/contact`, `/offline` | page | static |
 | `/addtofavourite` | redirect (308) → `/wishlist` | config |
 | `/manifest.webmanifest`, `/sitemap.xml`, `/robots.txt`, `/opengraph-image` | metadata routes | static |
@@ -163,9 +163,9 @@ No external services. Future payment provider and email service would be added b
 
 ## 8. Design system implementation
 - Tokens in `src/app/globals.css`: OKLCH CSS variables for `paper, surface, sunken, ink, ink-soft, line, line-strong, primary, primary-ink, primary-soft, accent, accent-ink, success, danger, plinth, focus`, with a separately tuned `.dark` set, exposed to Tailwind through `@theme inline` (`bg-paper`, `text-ink`, …). Radius scale 4/8/14/20; shadow token `shadow-card`.
-- Fonts: Bricolage Grotesque variable (display, `--font-bricolage`), Geist Sans (`--font-geist-sans`), Geist Mono (`--font-geist-mono`), all via `next/font/local`.
+- Fonts: Bricolage Grotesque (weight-axis file only, 41 KB, `--font-bricolage`), Geist Sans variable (`--font-geist-sans`), Geist Mono variable (`--font-geist-mono`, not preloaded), all via `next/font/local` from npm packages, so builds never call Google Fonts.
 - Components: shadcn-style wrappers over Radix (`Button` with cva variants primary/ink/outline/ghost/accent/link; `Sheet`, `Dialog`, `Accordion`, `Field`), plus store components (ProductCard, SaleTag, Price, Rating, Receipt, SectionHeading).
-- Motion: CSS keyframes for route/page-in, sheets, accordions, shimmer, marquee; `motion` for reveals, staggered lists, layout removal, springs. Durations 150–300 ms, `cubic-bezier(0.22,1,0.36,1)`; global `prefers-reduced-motion` override and `MotionConfig reducedMotion="user"`.
+- Motion: CSS keyframes for route/page-in, sheets, accordions, shimmer, marquee and the badge/heart "pop"; scroll reveals are CSS scroll-driven animations (`animation-timeline: view()`, no JS; unsupported browsers simply show content); `motion` (lazy `m` + `LazyMotion` in `MotionRoot`) only for the gallery crossfade, price tick, sticky buy bar, bag/wishlist removal, checkout steps and contact confirmation. Durations 150–300 ms, `cubic-bezier(0.22,1,0.36,1)`; global `prefers-reduced-motion` override and `MotionConfig reducedMotion="user"`.
 - Full rules: `DESIGN.md`.
 
 ## 9. PWA
@@ -174,7 +174,9 @@ No external services. Future payment provider and email service would be added b
 
 ## 10. Quality, security, testing, deployment
 
-**Performance budget:** Lighthouse mobile ≥ 90; LCP < 2.5 s, CLS < 0.05 on a production build. Static generation for catalogue pages; WebP/AVIF images with explicit `sizes`; LCP image `priority`; self-hosted fonts with `display: swap`; route transition in CSS (doesn't wait for JS); `optimizePackageImports` for lucide/motion/radix.
+**Performance budget:** Lighthouse mobile ≥ 90; LCP < 2.5 s, CLS < 0.05 on a production build. Static generation for product pages; WebP images (AVIF disabled: on-the-fly AVIF encoding was slow) with explicit `sizes`; LCP image `priority`; ~110 KB of preloaded fonts; route transition in CSS; no `motion` or `zod` in the home/shop bundles (bag/wishlist/account links use `prefetch={false}`; client components import `catalog-core`, not product data); `optimizePackageImports` for lucide/motion/radix.
+
+Measured (Lighthouse 12 mobile, `next start`, on this shared 7 GB machine while other projects were building): Accessibility 100, Best Practices 100, SEO 100 on home, shop and product pages; **Performance 51–76** with large run-to-run variance (TBT 460–2,130 ms on identical builds). Re-measure on an idle machine or the deployed site before signing off the ≥ 90 target.
 
 **Security:** zod validation on every route handler; server-side pricing; scrypt + timing-safe compares; signed httpOnly cookies; `poweredByHeader: false`; JSON-LD output escapes `<`; no card data; private routes `noindex` and disallowed in robots. Rate limiting is not implemented (local store); add it at the proxy or with a KV store before going public.
 

@@ -30,7 +30,7 @@ export const orderSchema = z.object({
       z.object({
         productId: z.string(),
         options: z.record(z.string(), z.string()),
-        qty: z.number().int().min(1).max(10),
+        qty: z.number().int().min(1).max(10, "You can buy up to 10 of each item"),
       }),
     )
     .min(1, "Your bag is empty")

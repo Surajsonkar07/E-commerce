@@ -23,9 +23,10 @@ export function TagMark({ className }: { className?: string }) {
 
 export function Logo({ className }: { className?: string }) {
   return (
-    <Link href="/" className={cn("group inline-flex items-center gap-2 rounded-md", className)} aria-label="Sarani — home">
+    <Link href="/" className={cn("group inline-flex items-center gap-2 rounded-md", className)}>
       <TagMark className="transition-transform duration-300 group-hover:-rotate-6" />
       <span className="font-display text-[1.6rem] leading-none font-bold tracking-[-0.045em]">sarani</span>
+      <span className="sr-only"> home</span>
     </Link>
   );
 }

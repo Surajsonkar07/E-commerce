@@ -58,7 +58,7 @@ export function SiteFooter() {
             <ul className="mt-4">
               {col.links.map((l) => (
                 <li key={l.href}>
-                  <Link href={l.href} className="inline-flex min-h-10 items-center text-[15px] opacity-85 hover:opacity-100 hover:underline">
+                  <Link href={l.href} prefetch={false} className="inline-flex min-h-10 items-center text-[15px] opacity-85 hover:opacity-100 hover:underline">
                     {l.label}
                   </Link>
                 </li>

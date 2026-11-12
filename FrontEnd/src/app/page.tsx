@@ -230,7 +230,7 @@ export default function HomePage() {
               </p>
             </div>
           </Reveal>
-          <Reveal className="relative order-1 lg:order-2" delay={0.05}>
+          <Reveal className="relative order-1 lg:order-2">
             <Image src="/images/aurora-wide.webp" alt="" width={496} height={328} sizes="(min-width: 1024px) 45vw, 100vw" className="h-auto w-full rounded-xl" />
           </Reveal>
         </div>
@@ -246,7 +246,7 @@ export default function HomePage() {
           {best.map((p, i) => (
             <li key={p.id} className="border-b border-line first:border-t">
               <Link href={`/product/${p.slug}`} className="group grid grid-cols-[auto_72px_1fr_auto] items-center gap-4 py-4 sm:grid-cols-[3rem_96px_1fr_auto] sm:gap-6">
-                <span className="font-display text-3xl font-bold text-line-strong tabular-nums transition-colors group-hover:text-primary sm:text-4xl">{pad(i + 1, 2)}</span>
+                <span className="font-display text-3xl font-bold text-ink-soft tabular-nums transition-colors group-hover:text-primary sm:text-4xl">{pad(i + 1, 2)}</span>
                 <ProductImage src={p.image} alt="" mode={p.imageMode} sizes="96px" className="aspect-square rounded-md" />
                 <span className="min-w-0">
                   <span className="block truncate text-[16px] font-medium group-hover:text-primary sm:text-lg">{p.name}</span>
@@ -291,12 +291,12 @@ export default function HomePage() {
               { icon: Headphones, t: "Customer service, 24/7", d: `A real person answers at ${site.phone}, day or night.` },
               { icon: Banknote, t: "Pay how you like", d: "Pay online at checkout, or in cash when the courier arrives." },
             ].map(({ icon: Icon, t, d }) => (
-              <div key={t} className="flex gap-4">
-                <Icon className="mt-0.5 size-6 shrink-0 text-primary" strokeWidth={1.75} />
-                <div>
-                  <dt className="font-medium">{t}</dt>
-                  <dd className="mt-1 text-[15px] leading-relaxed text-ink-soft">{d}</dd>
-                </div>
+              <div key={t}>
+                <dt className="flex items-center gap-3 font-medium">
+                  <Icon className="size-6 shrink-0 text-primary" strokeWidth={1.75} aria-hidden />
+                  {t}
+                </dt>
+                <dd className="mt-1 pl-9 text-[15px] leading-relaxed text-ink-soft">{d}</dd>
               </div>
             ))}
           </dl>

@@ -2,7 +2,8 @@
 
 import { useRef, useState } from "react";
 import Image from "next/image";
-import { AnimatePresence, motion } from "motion/react";
+import { AnimatePresence } from "motion/react";
+import * as m from "motion/react-m";
 import { cn } from "@/lib/utils";
 
 type View = { label: string; zoom: number; focus: number[] };
@@ -76,14 +77,14 @@ export function Gallery({ src, alt, mode, focus }: { src: string; alt: string; m
         onMouseLeave={() => setLens(null)}
       >
         <AnimatePresence mode="popLayout" initial={false}>
-          <motion.div key={active} className="absolute inset-0" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.2 }}>
+          <m.div key={active} className="absolute inset-0" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.2 }}>
             {img(
               views[active],
               "(min-width: 1280px) 40vw, 50vw",
               active === 0,
               lens ? { transform: `scale(${Math.max(2, views[active].zoom * 1.2)})`, transformOrigin: `${lens.x}% ${lens.y}%` } : undefined,
             )}
-          </motion.div>
+          </m.div>
         </AnimatePresence>
         <p className="pointer-events-none absolute bottom-3 left-3 rounded-sm bg-paper/90 px-2 py-1 font-mono text-[11px] text-ink">{views[active].label}</p>
       </div>

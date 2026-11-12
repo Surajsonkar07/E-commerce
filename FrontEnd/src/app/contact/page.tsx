@@ -1,3 +1,4 @@
+import { MotionRoot } from "@/components/motion-root";
 import type { Metadata } from "next";
 import { Clock, Mail, MapPin, Phone } from "lucide-react";
 import { Breadcrumbs } from "@/components/breadcrumbs";
@@ -20,6 +21,7 @@ const faqs = [
 
 export default function ContactPage() {
   return (
+    <MotionRoot>
     <div className="container-x pt-6 lg:pt-10">
       <Breadcrumbs items={[{ href: "/", label: "Home" }, { label: "Help & contact" }]} />
       <div className="mt-6 grid gap-12 lg:grid-cols-12 lg:gap-16">
@@ -70,5 +72,6 @@ export default function ContactPage() {
         </div>
       </div>
     </div>
+    </MotionRoot>
   );
 }

@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Plus, Ruler } from "lucide-react";
 import { toast } from "sonner";
-import { defaultOptions, priceFor, type Product } from "@/lib/catalog";
+import { defaultOptions, priceFor, type Product } from "@/lib/catalog-core";
 import { useShop } from "@/lib/store";
 
 const base =

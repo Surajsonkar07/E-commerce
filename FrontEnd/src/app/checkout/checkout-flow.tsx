@@ -6,7 +6,8 @@ import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Banknote, Check, CreditCard, Loader2, Lock, Pencil, Rocket, ShoppingBag, Truck } from "lucide-react";
-import { AnimatePresence, motion } from "motion/react";
+import { AnimatePresence } from "motion/react";
+import * as m from "motion/react-m";
 import { toast } from "sonner";
 import { AuthForm } from "@/components/auth/auth-form";
 import { LineThumb } from "@/components/cart/line-thumb";
@@ -47,9 +48,9 @@ function StepShell({ n, title, step, done, summary, onEdit, children }: { n: num
       </header>
       <AnimatePresence initial={false}>
         {open ? (
-          <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: "auto", opacity: 1 }} exit={{ height: 0, opacity: 0 }} transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }} className="overflow-hidden">
+          <m.div initial={{ height: 0, opacity: 0 }} animate={{ height: "auto", opacity: 1 }} exit={{ height: 0, opacity: 0 }} transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }} className="overflow-hidden">
             <div className="border-t border-line p-5 sm:p-6">{children}</div>
-          </motion.div>
+          </m.div>
         ) : null}
       </AnimatePresence>
     </section>

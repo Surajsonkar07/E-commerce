@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -13,14 +13,13 @@ type Hit = { id: string; slug: string; name: string; price: number; image: strin
 
 const suggestions = ["gamepad", "oak", "jacket", "monitor", "phone"];
 
-export function SearchDialog({ className, compact }: { className?: string; compact?: boolean }) {
+export function SearchDialog({ className, productCount }: { className?: string; productCount: number }) {
   const [open, setOpen] = useState(false);
   const [q, setQ] = useState("");
   const [hits, setHits] = useState<Hit[]>([]);
   const [loading, setLoading] = useState(false);
   const [active, setActive] = useState(-1);
   const router = useRouter();
-  const listRef = useRef<HTMLUListElement>(null);
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
@@ -70,24 +69,24 @@ export function SearchDialog({ className, compact }: { className?: string; compa
         if (!o) setQ("");
       }}
     >
+      {/* One dialog, two triggers: a wide field on tablets/desktops, an icon on phones and at lg. */}
       <DialogTrigger asChild>
-        {compact ? (
-          <button type="button" aria-label="Search the store" className={cn("grid size-11 place-items-center rounded-md hover:bg-sunken", className)}>
-            <Search className="size-[19px]" />
-          </button>
-        ) : (
-          <button
-            type="button"
-            className={cn(
-              "flex h-11 w-full items-center gap-2.5 rounded-md border border-line bg-surface px-3.5 text-sm text-ink-soft transition-colors hover:border-line-strong",
-              className,
-            )}
-          >
-            <Search className="size-4" />
-            <span className="flex-1 text-left">Search 16 things we stock…</span>
-            <kbd className="hidden rounded border border-line bg-sunken px-1.5 font-mono text-[11px] lg:inline">Ctrl K</kbd>
-          </button>
-        )}
+        <button
+          type="button"
+          className={cn(
+            "hidden h-11 w-60 items-center gap-2.5 rounded-md border border-line bg-surface px-3.5 text-sm text-ink-soft transition-colors hover:border-line-strong md:flex lg:hidden xl:flex xl:w-80",
+            className,
+          )}
+        >
+          <Search className="size-4" />
+          <span className="flex-1 text-left">Search {productCount} things we stock…</span>
+          <kbd className="hidden rounded border border-line bg-sunken px-1.5 font-mono text-[11px] xl:inline">Ctrl K</kbd>
+        </button>
+      </DialogTrigger>
+      <DialogTrigger asChild>
+        <button type="button" aria-label="Search the store" className="grid size-11 place-items-center rounded-md hover:bg-sunken md:hidden lg:grid xl:hidden">
+          <Search className="size-[19px]" />
+        </button>
       </DialogTrigger>
       <DialogContent aria-describedby={undefined}>
         <DialogTitle className="sr-only">Search the store</DialogTitle>
@@ -130,7 +129,7 @@ export function SearchDialog({ className, compact }: { className?: string; compa
 
         {q.trim() ? (
           results.length ? (
-            <ul id="search-results" role="listbox" ref={listRef} className="max-h-[60vh] overflow-y-auto p-2">
+            <ul id="search-results" role="listbox" className="max-h-[60vh] overflow-y-auto p-2">
               {results.map((h, i) => (
                 <li key={h.id} id={`hit-${h.id}`} role="option" aria-selected={i === active}>
                   <Link

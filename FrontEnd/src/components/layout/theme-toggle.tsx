@@ -45,7 +45,7 @@ export function ThemeSegment() {
             onClick={() => setTheme(t)}
             className={cn(
               "flex h-10 items-center justify-center gap-1.5 rounded-[6px] text-sm capitalize transition-colors",
-              active ? "bg-surface text-ink shadow-sm" : "text-ink-soft hover:text-ink",
+              active ? "bg-surface text-ink shadow-sm ring-1 ring-line-strong" : "text-ink-soft hover:text-ink",
             )}
           >
             <Icon className="size-4" /> {t}

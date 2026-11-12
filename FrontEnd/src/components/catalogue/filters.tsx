@@ -5,7 +5,7 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { SlidersHorizontal, Star, X } from "lucide-react";
 import { Sheet, SheetContent, SheetDescription, SheetTitle, SheetTrigger, SheetClose } from "@/components/ui/sheet";
 import { Select } from "@/components/ui/field";
-import { PRICE_BANDS, SORTS, type Category } from "@/lib/catalog";
+import { PRICE_BANDS, SORTS, type Category } from "@/lib/catalog-core";
 import { cn } from "@/lib/utils";
 
 type Props = {
@@ -17,8 +17,8 @@ type Props = {
 
 function useFilterParams() {
   const router = useRouter();
-  const pathname = usePathname();
-  const params = useSearchParams();
+  const pathname = usePathname() ?? "/shop";
+  const params = useSearchParams() ?? new URLSearchParams();
   const [pending, start] = useTransition();
   const [optimistic, setOptimistic] = useOptimistic(params.toString());
   const current = new URLSearchParams(optimistic);
@@ -72,7 +72,7 @@ export function CatalogueShell({ categories, fixedCategory, total, children }: P
             {categories.map((c) => (
               <li key={c.slug}>
                 <label className="flex min-h-10 items-center gap-3 text-[15px]">
-                  <input type="checkbox" checked={selectedCats.includes(c.slug)} onChange={() => toggleCat(c.slug)} className="size-[18px] accent-[var(--primary)]" />
+                  <input type="checkbox" aria-label={c.name} checked={selectedCats.includes(c.slug)} onChange={() => toggleCat(c.slug)} className="size-[18px] accent-[var(--primary)]" />
                   <span className="flex-1">{c.name}</span>
                   <span className="font-mono text-xs text-ink-soft">{c.count}</span>
                 </label>
@@ -184,7 +184,7 @@ export function CatalogueShell({ categories, fixedCategory, total, children }: P
         </p>
 
         <label className="ml-auto flex items-center gap-2 text-sm">
-          <span className="text-ink-soft max-sm:sr-only">Sort by</span>
+          <span className="whitespace-nowrap text-ink-soft max-sm:sr-only">Sort by</span>
           <Select value={current.get("sort") ?? "featured"} onChange={(e) => setOrDelete("sort", e.target.value === "featured" ? undefined : e.target.value)} className="h-11 w-auto min-w-44">
             {Object.entries(SORTS).map(([k, v]) => (
               <option key={k} value={k}>

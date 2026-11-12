@@ -7,9 +7,9 @@ import { ProductImage } from "./product-image";
 import { WishButton } from "./wish-button";
 import { QuickAdd } from "./quick-add";
 
-type Props = { product: Product; index?: number; priority?: boolean; className?: string; sizes?: string };
+type Props = { product: Product; index?: number; priority?: boolean; className?: string; sizes?: string; headingLevel?: "h2" | "h3" };
 
-export function ProductCard({ product: p, index, priority, className, sizes = "(min-width: 1280px) 22vw, (min-width: 768px) 30vw, 46vw" }: Props) {
+export function ProductCard({ product: p, index, priority, className, sizes = "(min-width: 1280px) 22vw, (min-width: 768px) 30vw, 46vw", headingLevel: Heading = "h3" }: Props) {
   const pct = discountPct(p);
   const cat = getCategory(p.category);
   return (
@@ -45,11 +45,11 @@ export function ProductCard({ product: p, index, priority, className, sizes = "(
           <span>{cat?.name}</span>
           {index !== undefined ? <span aria-hidden>No.{pad(index + 1)}</span> : null}
         </p>
-        <h3 className="font-sans text-[15px] leading-snug font-medium tracking-normal">
+        <Heading className="font-sans text-[15px] leading-snug font-medium tracking-normal">
           <Link href={`/product/${p.slug}`} className="after:absolute after:inset-0 after:content-[''] hover:text-primary focus-visible:outline-none [&:focus-visible]:after:rounded-lg [&:focus-visible]:after:outline-2 [&:focus-visible]:after:outline-[var(--focus)]">
             {p.name}
           </Link>
-        </h3>
+        </Heading>
         <Rating value={p.rating} count={p.reviews} />
         <Price price={p.price} compareAt={p.compareAt} className="mt-auto pt-1" />
       </div>

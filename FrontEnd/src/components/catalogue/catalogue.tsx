@@ -18,7 +18,7 @@ export function Catalogue({ query, fixedCategory }: { query: CatalogQuery; fixed
           <ul className="grid grid-cols-2 gap-x-4 gap-y-10 md:grid-cols-3 2xl:grid-cols-4">
             {list.map((p, i) => (
               <li key={p.id}>
-                <ProductCard product={p} index={i} priority={i < 2} sizes="(min-width: 1536px) 20vw, (min-width: 1024px) 26vw, (min-width: 768px) 31vw, 46vw" />
+                <ProductCard product={p} index={i} priority={i < 2} headingLevel="h2" sizes="(min-width: 1536px) 20vw, (min-width: 1024px) 26vw, (min-width: 768px) 31vw, 46vw" />
               </li>
             ))}
           </ul>

@@ -55,26 +55,37 @@ No third-party keys are needed: payments are simulated and nothing is emailed.
 
 ## Features
 
-Everything the Vite version had still works (✔), plus what was added (＋):
+Specified in [`docs/PRD.md`](docs/PRD.md) (acceptance criteria) and [`docs/TRD.md`](docs/TRD.md) (routes, APIs, traceability). **(L)** = existed in the old Vite app. Status as of 2026-11-12, checked on a production build (`next start`):
 
-- ✔ Home page: hero, latest/flash deals with countdown, categories, best sellers, product grid, service promises
-- ✔ About page: story, stats, team, service promises
-- ✔ Contact page with phone/email and a contact form (＋ now actually sends, validated, stored)
-- ✔ Login and sign-up pages (＋ now real local accounts with hashed passwords and sessions)
-- ✔ Cart with quantity and remove, persisted (＋ quantity stepper, undo, save for later, promo code `SARANI10`)
-- ✔ Favourites / wishlist, persisted (old `/addtofavourite` URL redirects to `/wishlist`)
-- ✔ Checkout with billing details, cart totals, free shipping and cash on delivery (＋ validated address, express delivery, demo online payment, review step)
-- ✔ Toast notifications for cart and wishlist actions
-- ＋ Full catalogue at `/shop`: department, price, rating, on-sale and in-stock filters; six sort orders; search; filter chips; mobile filter sheet
-- ＋ Department pages at `/c/[slug]`
-- ＋ Product pages with gallery (swipe on mobile, hover magnifier on desktop), variant options with price changes, quantity, buy now, delivery estimate, specs, ratings breakdown, related products, sticky mobile buy bar
-- ＋ Header search with live suggestions and keyboard navigation (Ctrl/⌘ K)
-- ＋ Order confirmation, order detail with tracking, order history in Account
-- ＋ Light / dark / system theme with no flash; designed dark palette
-- ＋ Mobile-first layout with a bottom tab bar on phones
-- ＋ PWA: manifest, icons (incl. maskable and Apple touch), offline fallback page, service worker caching
-- ＋ SEO: per-page metadata, Open Graph image, `sitemap.xml`, `robots.txt`, JSON-LD (Organization, WebSite search, Product with offers/rating/shipping/returns, BreadcrumbList)
-- ＋ Loading skeletons, designed empty, error and 404 states; reduced-motion support
+| ID | Feature | Status | How it was verified |
+|---|---|---|---|
+| F-01 | Home page (L) | ✅ verified | Browser at 1024 px and 375 px, light and dark |
+| F-02 | Catalogue `/shop` | ✅ verified | Browser: grid, cards, quick add, counts |
+| F-03 | Filters | ✅ verified | Browser: department + sort → URL `?category=gaming&sort=price-asc`, chips; headless: mobile filter sheet |
+| F-04 | Sort | ✅ verified | Browser + `GET /api/products?sort=price-asc` |
+| F-05 | Search | ✅ verified | Browser: Ctrl K → "oak" → ↓ Enter opens the product; `/shop?q=` |
+| F-06 | Department pages | ✅ verified | HTTP 200 for `/c/*`, browser at 360 px, unknown slug → 404 |
+| F-07 | Product page and gallery | ✅ verified | Browser mobile (swipe dots) and desktop (thumbnails, magnifier) |
+| F-08 | Variants and quantity | ✅ verified | Headless: 512 GB option $899 → $1,199; qty 2 added to bag; sticky bar code path |
+| F-09 | Bag (L) | ✅ verified | Browser: add, qty, totals, persisted across reloads |
+| F-10 | Promo codes | ✅ verified | Browser: `sarani10` → −$18.00; API recomputes discount server-side |
+| F-11 | Wishlist (L) | ✅ verified | Headless: two hearts → persisted after reload → `/addtofavourite` redirects to `/wishlist` showing both |
+| F-12 | Accounts (L, was fake) | ✅ verified | API: validation, duplicate email 409, wrong password 401, cookie session; browser: inline sign-in at checkout |
+| F-13 | Checkout (L, was fake) | ✅ verified | Browser: sign in → address → delivery → cash on delivery → order placed; API: tampered qty/stock rejected, prices recomputed |
+| F-14 | Order confirmation and tracking | ✅ verified | Browser: confirmation banner, timeline, items, totals |
+| F-15 | Order history | ✅ verified | Browser: account shows 2 orders and total spent |
+| F-16 | About (L) | ✅ verified | Browser desktop |
+| F-17 | Help and contact (L, form was fake) | ✅ verified | Browser + `POST /api/contact` returns a reference |
+| F-18 | Newsletter (L) | ✅ verified | API: first sign-up stored, duplicate acknowledged |
+| F-19 | Product API | ✅ verified | `curl` on every endpoint in the TRD |
+| F-20 | Light / dark / system theme | ✅ verified | Browser dark mode; headless: stored theme applied before first paint |
+| F-21 | PWA and offline | ✅ verified | Headless Chrome: SW registers and controls the page; with the server stopped, a visited page loads from cache and unvisited pages show `/offline`. (The desktop app's built-in browser pane refuses service workers; that is a pane limitation.) |
+| F-22 | SEO | ✅ verified | Lighthouse SEO 100; Product + BreadcrumbList JSON-LD on product pages; Organization + WebSite on home; sitemap has 29 URLs |
+| F-23 | Responsive and mobile nav | ✅ verified | Headless: no horizontal scroll at 360 px on 12 pages; drawer and bottom tab bar in browser |
+| F-24 | Feedback states and motion | ✅ verified | Toasts, skeletons, empty states, 404 seen in browser; reduced motion handled in CSS and `MotionConfig` |
+| F-25 | Accessibility | ✅ verified | Lighthouse Accessibility 100 on home, shop and product |
+
+**Not yet at target:** Lighthouse mobile **Performance** measured 51–76 (target ≥ 90) on this shared machine while other projects were building; identical runs varied by 15+ points. Accessibility, Best Practices and SEO are 100. See TRD §10 for what was optimised and re-measure on an idle machine or the deployed site.
 
 ## Things for the owner to replace
 

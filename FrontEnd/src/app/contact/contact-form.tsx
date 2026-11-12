@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { CheckCircle2, Loader2, Send } from "lucide-react";
-import { motion } from "motion/react";
+import * as m from "motion/react-m";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Field, Input, Textarea } from "@/components/ui/field";
@@ -20,7 +20,7 @@ export function ContactForm() {
 
   if (sent) {
     return (
-      <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} className="flex flex-col items-start gap-3 py-6" role="status">
+      <m.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} className="flex flex-col items-start gap-3 py-6" role="status">
         <CheckCircle2 className="size-10 text-success" strokeWidth={1.5} />
         <p className="text-2xl font-semibold">Message received</p>
         <p className="text-ink-soft">
@@ -29,7 +29,7 @@ export function ContactForm() {
         <Button variant="outline" className="mt-2" onClick={() => setSent(null)}>
           Send another
         </Button>
-      </motion.div>
+      </m.div>
     );
   }
 

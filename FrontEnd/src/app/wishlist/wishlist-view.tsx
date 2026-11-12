@@ -2,7 +2,8 @@
 
 import Link from "next/link";
 import { Heart } from "lucide-react";
-import { AnimatePresence, motion } from "motion/react";
+import { AnimatePresence } from "motion/react";
+import * as m from "motion/react-m";
 import { Button } from "@/components/ui/button";
 import { ProductCard } from "@/components/product/product-card";
 import { getProductById, type Product } from "@/lib/catalog";
@@ -44,9 +45,9 @@ export function WishlistView() {
       <ul className="mt-8 grid grid-cols-2 gap-x-4 gap-y-10 md:grid-cols-3 xl:grid-cols-4">
         <AnimatePresence initial={false}>
           {items.map((p, i) => (
-            <motion.li key={p.id} layout initial={{ opacity: 0, scale: 0.97 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.95 }} transition={{ duration: 0.2 }}>
-              <ProductCard product={p} index={i} />
-            </motion.li>
+            <m.li key={p.id} layout initial={{ opacity: 0, scale: 0.97 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.95 }} transition={{ duration: 0.2 }}>
+              <ProductCard product={p} index={i} headingLevel="h2" />
+            </m.li>
           ))}
         </AnimatePresence>
       </ul>

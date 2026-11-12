@@ -3,6 +3,7 @@ import { createHmac, randomBytes, scrypt as _scrypt, timingSafeEqual } from "nod
 import { promisify } from "node:util";
 import { cookies } from "next/headers";
 import { read, type User } from "./db";
+import { site } from "./site";
 
 const scrypt = promisify(_scrypt) as (pw: string, salt: Buffer, len: number) => Promise<Buffer>;
 
@@ -57,7 +58,8 @@ export const sessionCookie = (token: string) => ({
   value: token,
   httpOnly: true,
   sameSite: "lax" as const,
-  secure: process.env.NODE_ENV === "production" && !process.env.NEXT_PUBLIC_SITE_URL?.startsWith("http://"),
+  // Secure whenever the public URL is https (browsers also accept Secure cookies on http://localhost).
+  secure: site.url.startsWith("https://"),
   path: "/",
   maxAge: MAX_AGE,
 });

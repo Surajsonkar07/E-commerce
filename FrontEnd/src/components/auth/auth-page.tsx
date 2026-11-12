@@ -7,7 +7,7 @@ import { AuthForm } from "./auth-form";
 
 function Inner({ mode }: { mode: "login" | "signup" }) {
   const router = useRouter();
-  const params = useSearchParams();
+  const params = useSearchParams() ?? new URLSearchParams();
   const raw = params.get("next") ?? "/account";
   const next = raw.startsWith("/") && !raw.startsWith("//") ? raw : "/account";
   const qs = params.get("next") ? `?next=${encodeURIComponent(next)}` : "";

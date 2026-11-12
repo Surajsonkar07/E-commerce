@@ -2,7 +2,6 @@
 
 import { useRouter } from "next/navigation";
 import { Heart } from "lucide-react";
-import { motion } from "motion/react";
 import { toast } from "sonner";
 import { useHydrated, useShop } from "@/lib/store";
 import { cn } from "@/lib/utils";
@@ -34,9 +33,9 @@ export function WishButton({ productId, name, className, withLabel }: { productI
         className,
       )}
     >
-      <motion.span key={String(saved)} initial={{ scale: saved ? 0.6 : 1 }} animate={{ scale: 1 }} transition={{ type: "spring", stiffness: 500, damping: 15 }}>
+      <span key={String(saved)} className={cn("inline-flex", saved && "animate-[pop_320ms_var(--ease-out-soft)]")}>
         <Heart className={cn("size-[18px]", saved ? "fill-primary stroke-primary" : "")} />
-      </motion.span>
+      </span>
       {withLabel ? <span>{saved ? "Saved" : "Save"}</span> : null}
     </button>
   );

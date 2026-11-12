@@ -21,7 +21,7 @@ Text contrast: ink/paper and ink-soft/paper pass WCAG AA in both themes; primary
 
 ## Type
 
-- **Display:** Bricolage Grotesque (variable, opsz + wdth): headlines, tight tracking (−0.02 to −0.045em), leading 0.9–1.05.
+- **Display:** Bricolage Grotesque (variable weight axis, self-hosted): headlines, tight tracking (−0.02 to −0.045em), leading 0.9–1.05.
 - **UI:** Geist, 15–17 px body.
 - **Mono:** Geist Mono for prices, SKUs, counts, eyebrows and receipts: tabular figures everywhere money appears.
 - Scale (fluid with `clamp`): eyebrow 11.5 px mono caps · body 15/17 · h3 18 · h2 28→44 · h1 36→88.
@@ -37,7 +37,7 @@ Text contrast: ink/paper and ink-soft/paper pass WCAG AA in both themes; primary
 ## Motion
 
 - 150–300 ms, ease-out `cubic-bezier(0.22, 1, 0.36, 1)`; springs only for tiny confirmations (badge counts, heart).
-- Route change: CSS fade-up 260 ms (no JS wait). Sections: staggered reveal on scroll (`Stagger`/`Reveal`). Stats count up on About.
+- Route change: CSS fade-up 260 ms (no JS wait). Sections: reveal as they scroll in (`Stagger`/`Reveal`, CSS scroll-driven animations, no JS). Stats count up on About.
 - Hover: product images scale 1.06, quick-add slides up; press: buttons scale 0.98.
 - Sheets slide from the side/bottom; accordions animate height; cart rows collapse on removal.
 - Everything respects `prefers-reduced-motion` (global CSS override + `MotionConfig reducedMotion="user"`).

@@ -1,3 +1,4 @@
+import { MotionRoot } from "@/components/motion-root";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
@@ -43,6 +44,7 @@ export default async function ProductPage({ params }: Props) {
   const validUntil = isoDateFromNow(30);
 
   return (
+    <MotionRoot>
     <div className="container-x pt-6 lg:pt-10">
       <JsonLd
         data={{
@@ -120,6 +122,7 @@ export default async function ProductPage({ params }: Props) {
           <div className="rule-dashed my-7" />
           <PurchasePanel product={p} />
 
+          <h2 className="sr-only">Product details</h2>
           <Accordion type="multiple" defaultValue={["about"]} className="mt-10 border-t border-line" id="details">
             <AccordionItem value="about">
               <AccordionTrigger>About this {cat.name === "Fashion" ? "piece" : "product"}</AccordionTrigger>
@@ -177,6 +180,7 @@ export default async function ProductPage({ params }: Props) {
         </Stagger>
       </section>
     </div>
+    </MotionRoot>
   );
 }
 
