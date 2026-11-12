@@ -1,0 +1,183 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* ---------------------------------------------------------------
+   Sarani design tokens (see DESIGN.md). Light and dark are tuned
+   separately: dark is warm charcoal, not an inversion.
+---------------------------------------------------------------- */
+:root {
+  --paper: oklch(0.975 0.008 75);
+  --surface: oklch(0.995 0.004 75);
+  --sunken: oklch(0.948 0.011 75);
+  --ink: oklch(0.22 0.018 50);
+  --ink-soft: oklch(0.45 0.02 55);
+  --line: oklch(0.885 0.013 70);
+  --line-strong: oklch(0.78 0.016 65);
+
+  --primary: oklch(0.55 0.185 33);
+  --primary-ink: oklch(0.99 0.005 75);
+  --primary-soft: oklch(0.93 0.04 40);
+  --accent: oklch(0.83 0.135 84);
+  --accent-ink: oklch(0.25 0.04 70);
+  --success: oklch(0.52 0.12 155);
+  --danger: oklch(0.55 0.2 27);
+
+  --plinth: oklch(0.945 0.012 75);
+  --focus: oklch(0.55 0.185 33);
+  --shadow: 0 1px 0 oklch(0.2 0.02 50 / 0.04), 0 8px 24px -12px oklch(0.2 0.02 50 / 0.18);
+}
+
+.dark {
+  --paper: oklch(0.185 0.012 60);
+  --surface: oklch(0.225 0.014 60);
+  --sunken: oklch(0.16 0.011 60);
+  --ink: oklch(0.95 0.01 80);
+  --ink-soft: oklch(0.74 0.016 70);
+  --line: oklch(0.31 0.014 60);
+  --line-strong: oklch(0.42 0.016 62);
+
+  --primary: oklch(0.7 0.16 38);
+  --primary-ink: oklch(0.17 0.02 45);
+  --primary-soft: oklch(0.3 0.06 38);
+  --accent: oklch(0.8 0.125 84);
+  --accent-ink: oklch(0.2 0.03 70);
+  --success: oklch(0.74 0.13 155);
+  --danger: oklch(0.7 0.17 27);
+
+  /* product tiles stay light, like goods on a lit counter */
+  --plinth: oklch(0.875 0.012 75);
+  --focus: oklch(0.8 0.125 84);
+  --shadow: 0 1px 0 oklch(0 0 0 / 0.2), 0 10px 30px -14px oklch(0 0 0 / 0.6);
+}
+
+@theme inline {
+  --color-paper: var(--paper);
+  --color-surface: var(--surface);
+  --color-sunken: var(--sunken);
+  --color-ink: var(--ink);
+  --color-ink-soft: var(--ink-soft);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --color-primary: var(--primary);
+  --color-primary-ink: var(--primary-ink);
+  --color-primary-soft: var(--primary-soft);
+  --color-accent: var(--accent);
+  --color-accent-ink: var(--accent-ink);
+  --color-success: var(--success);
+  --color-danger: var(--danger);
+  --color-plinth: var(--plinth);
+
+  --font-display: var(--font-bricolage), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-geist), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, "SFMono-Regular", monospace;
+
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 14px;
+  --radius-xl: 20px;
+
+  --shadow-card: var(--shadow);
+  --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
+
+  --animate-shimmer: shimmer 1.4s linear infinite;
+  @keyframes shimmer {
+    from { background-position: -200% 0; }
+    to { background-position: 200% 0; }
+  }
+  --animate-marquee: marquee 38s linear infinite;
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+}
+
+@layer base {
+  * {
+    border-color: var(--line);
+  }
+  html {
+    -webkit-text-size-adjust: 100%;
+    scroll-behavior: smooth;
+  }
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--font-sans);
+    font-feature-settings: "ss01", "cv11";
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  h1, h2, h3, h4 {
+    font-family: var(--font-display);
+    letter-spacing: -0.02em;
+    text-wrap: balance;
+  }
+  p { text-wrap: pretty; }
+  ::selection {
+    background: var(--accent);
+    color: var(--accent-ink);
+  }
+  :focus-visible {
+    outline: 2px solid var(--focus);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+  button:not(:disabled), [role="button"]:not(:disabled), label[for], select { cursor: pointer; }
+  input[type="number"]::-webkit-inner-spin-button { -webkit-appearance: none; }
+}
+
+@layer components {
+  /* Thin ruled line used like a ledger / receipt separator */
+  .rule-dashed {
+    background-image: linear-gradient(to right, var(--line-strong) 50%, transparent 0);
+    background-size: 8px 1px;
+    background-repeat: repeat-x;
+    height: 1px;
+  }
+  .skeleton {
+    background: linear-gradient(90deg, var(--sunken) 25%, var(--line) 50%, var(--sunken) 75%);
+    background-size: 200% 100%;
+    animation: var(--animate-shimmer);
+    border-radius: var(--radius-md);
+  }
+  /* Product cut-outs are shot on white: multiply drops the white into the plinth */
+  .cutout { mix-blend-mode: multiply; }
+  .eyebrow {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+  }
+  .container-x {
+    width: 100%;
+    max-width: 88rem;
+    margin-inline: auto;
+    padding-inline: 1rem;
+  }
+  @media (min-width: 640px) { .container-x { padding-inline: 1.5rem; } }
+  @media (min-width: 1024px) { .container-x { padding-inline: 2.5rem; } }
+}
+
+@keyframes page-in { from { opacity: 0.001; transform: translateY(6px); } }
+@keyframes fade-in { from { opacity: 0; } }
+@keyframes fade-out { to { opacity: 0; } }
+@keyframes pop-in { from { opacity: 0; transform: translate(-50%, 8px) scale(0.98); } }
+@keyframes sheet-in-right { from { transform: translateX(100%); } }
+@keyframes sheet-out-right { to { transform: translateX(100%); } }
+@keyframes sheet-in-left { from { transform: translateX(-100%); } }
+@keyframes sheet-out-left { to { transform: translateX(-100%); } }
+@keyframes sheet-in-bottom { from { transform: translateY(100%); } }
+@keyframes sheet-out-bottom { to { transform: translateY(100%); } }
+@keyframes acc-down { from { height: 0; } to { height: var(--radix-accordion-content-height); } }
+@keyframes acc-up { from { height: var(--radix-accordion-content-height); } to { height: 0; } }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
